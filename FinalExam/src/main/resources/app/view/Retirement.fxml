@@ -72,7 +72,14 @@
                   <Insets />
                </GridPane.margin>
             </HBox>
-            <TextField fx:id="txtYearsToWork" prefHeight="25.0" prefWidth="62.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="YearsToWork" prefHeight="25.0" prefWidth="62.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="WorkingAnnualReturn" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="AmountToSave" GridPane.columnIndex="1" />
+            <TextField fx:id="TotalAmountSaved" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="YearsRetired" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="AnnualReturnRetired" prefHeight="14.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="ReqIncome" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="MonthSocSec" GridPane.columnIndex="1" GridPane.rowIndex="9" />
          </children>
       </GridPane>
    </center>

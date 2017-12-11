@@ -1,30 +1,84 @@
 package pkgCore;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
+import org.apache.poi.ss.formula.functions.FinanceLib;
 public class Retirement {
 
-	private int iYearsToWork;
-	private double dAnnualReturnWorking;
-	private int iYearsRetired;
-	private double dAnnualReturnRetired;
-	private double dRequiredIncome;
-	private double dMonthlySSI;
+	private int YearsToWork;
+	private double WorkingAnnualReturn;
+	private int YearsRetired;
+	private double AnnualReturnRetired;
+	private double ReqIncome;
+	private double MonthSocSec;
 	
-	//TODO: Build the contructor, getters and setters for the attributes above.
-	
-	public double AmountToSave()
-	{
-		//TODO: Determine the amount to save each month based on TotalAmountSaved, YearsToWork
-		//		and Annual return while working
-		
-		
-		return 0;
+	public Retirement(int YearsToWork, double WorkingAnnualReturn, int YearsRetired, double AnnualReturnRetired, double ReqIncome, double MonthSocSec) {
+
+	this.setYearsToWork(YearsToWork);
+	this.setAnnualReturnRetired(AnnualReturnRetired);
+	this.setYearsRetired(YearsRetired);
+	this.setAnnualReturnWorking(WorkingAnnualReturn);
+	this.setReqIncome(ReqIncome);
+	this.setMonthSocSec(MonthSocSec);
 	}
-	
-	public double TotalAmountSaved()
-	{
-		//	TODO: Determine amount to be saved based on Monthly SSI, Required Income, Annual return during retirement
-		//		and number of years retired.
-		//
-		return 0;
+
+	public int getYearsToWork() {
+		return YearsToWork;
+	}
+
+	public void setYearsToWork(int YearsToWork) {
+		this.YearsToWork = YearsToWork;
+	}
+
+	public double getAnnualReturnWorking() {
+		return WorkingAnnualReturn;
+	}
+
+	public void setAnnualReturnWorking(double AnnualReturnWorking) {
+		this.WorkingAnnualReturn = WorkingAnnualReturn;
+	}
+
+	public int getYearsRetired() {
+		return YearsRetired;
+	}
+
+	public void setYearsRetired(int YearsRetired) {
+		this.YearsRetired = YearsRetired;
+	}
+
+	public double getAnnualReturnRetired() {
+		return AnnualReturnRetired;
+	}
+
+	public void setAnnualReturnRetired(double AnnualReturnRetired) {
+		this.AnnualReturnRetired = AnnualReturnRetired;
+	}
+
+	public double getReqIncome() {
+		return ReqIncome;
+	}
+
+	public void setReqIncome(double ReqIncome) {
+		this.ReqIncome = ReqIncome;
+	}
+
+	public double getMonthSocSec() {
+		return MonthSocSec;
+	}
+
+	public void setMonthSocSec(double MonthSocSec) {
+		this.MonthSocSec = MonthSocSec;
+	}
+
+	public double AmountToSave() {
+		
+		DecimalFormat df = new DecimalFormat("0.00");
+		return (-1)*Double.parseDouble(df.format(FinanceLib.pmt(WorkingAnnualReturn/12, YearsToWork*12, 0, this.TotalAmountSaved(), false)));
+	}
+
+	public double TotalAmountSaved() {
+		
+		DecimalFormat df = new DecimalFormat("0.00");
+		return (-1)*Double.parseDouble(df.format(FinanceLib.pv(AnnualReturnRetired/12, YearsRetired*12.0, (ReqIncome - MonthSocSec), 0.0, false)));
 	}
 }

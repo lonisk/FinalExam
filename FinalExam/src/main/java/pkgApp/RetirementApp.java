@@ -18,8 +18,6 @@ public class RetirementApp extends Application {
 
 	}
 
-	///jokes on me
-	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		

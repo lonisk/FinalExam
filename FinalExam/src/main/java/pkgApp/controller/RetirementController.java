@@ -2,46 +2,137 @@ package pkgApp.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import org.springframework.util.NumberUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import pkgApp.RetirementApp;
+import pkgCore.Retirement;
 
 public class RetirementController implements Initializable {
-
-		
-	private RetirementApp mainApp = null;
-	
 	@FXML
-	private TextField txtYearsToWork;
-	
+	private RetirementApp mainApp = null;
+	@FXML 
+	private TextField YearsToWork;
+	@FXML 
+	private TextField WorkingAnnualReturn;
+	@FXML
+	private TextField YearsRetired;
+	@FXML
+	private TextField AnnualReturnRetired;
+	@FXML
+	private TextField ReqIncome;
+	@FXML
+	private TextField MonthSocSec;
+	@FXML
+	private TextField TotalAmountSaved;
+	@FXML
+	private TextField AmountToSave;
+	@FXML
+	private Button Clear;
+	@FXML
+	private Button Calc;
 
+	@FXML
 	public RetirementApp getMainApp() {
 		return mainApp;
 	}
-
+	
 	public void setMainApp(RetirementApp mainApp) {
 		this.mainApp = mainApp;
 	}
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {		
+	public void initialize(URL location, ResourceBundle resources) {
 	}
+
 	
-	@FXML
 	public void btnClear(ActionEvent event) {
 		System.out.println("Clear pressed");
-		
-		//	TODO: Clear all the text inputs
+
+		YearsToWork.clear();
+		WorkingAnnualReturn.clear();
+		YearsRetired.clear();
+		AnnualReturnRetired.clear();
+		ReqIncome.clear();
+		MonthSocSec.clear();
+		TotalAmountSaved.clear();
+		AmountToSave.clear();
 	}
 	
 	@FXML
 	public void btnCalculate(ActionEvent event) {
-		
-		//	TODO: Call AmountToSave and TotalAmountSaved and populate 
-		
+
+		if(isInputValid())
+		{Retirement r = new Retirement((int) Integer.valueOf(YearsToWork.getText()),
+				(double) Double.valueOf(WorkingAnnualReturn.getText()),
+				(int) Integer.valueOf(YearsRetired.getText()),
+				(double) Double.valueOf(AnnualReturnRetired.getText()),
+				(double) Double.valueOf(ReqIncome.getText()), (double) Double.valueOf(MonthSocSec.getText()));
+
+		TotalAmountSaved.setText(Double.toString(r.TotalAmountSaved()));
+		AmountToSave.setText(Double.toString(r.AmountToSave()));
+		}
 	}
 	
+    private boolean isInputValid() {
+        String errorMessage = "";
+
+        try {
+            Integer.parseInt(YearsToWork.getText());
+        } catch (NumberFormatException e) {
+            errorMessage += "Years To Work must be valid integer!\n"; 
+        }
+        
+        try {
+            Integer.parseInt(YearsRetired.getText());
+        } catch (NumberFormatException e) {
+            errorMessage += "Years Retired must be valid integer\n"; 
+        }
+        
+        try {
+            if(Double.parseDouble(WorkingAnnualReturn.getText())<0 || Double.parseDouble(WorkingAnnualReturn.getText())>.2) {
+            	errorMessage += "Annual Return Working must be between 0-0.20\n";
+            }
+            
+        } catch (NumberFormatException e) {
+            errorMessage += "Annual Return Working must be a number\n"; 
+        }
+        
+        try {
+        	if(Double.parseDouble(AnnualReturnRetired.getText())<0 || Double.parseDouble(AnnualReturnRetired.getText())>.03) {
+            	errorMessage += "Annual Return Working must be between 0-0.03\n";
+            }
+        } catch (NumberFormatException e) {
+            errorMessage += "AnnualReturnRetired must be a number!\n"; 
+        }
+        
+        try {
+            Double.parseDouble(ReqIncome.getText());
+        } catch (NumberFormatException e) {
+            errorMessage += "Required Income must be valid number!\n"; 
+        }
+
+        try {
+            Double.parseDouble(MonthSocSec.getText());
+        } catch (NumberFormatException e) {
+            errorMessage += "MonthSocSec must be valid number\n"; 
+        }
+        
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Invalid Fields");
+            alert.setHeaderText("Please correct invalid fields");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+
+            return false;
+        }
+    }
 }

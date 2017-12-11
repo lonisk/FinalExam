@@ -10,15 +10,15 @@ public class TestFinance {
 	@Test 
 	public void TestAmounts()
 	{
-		double dMonthsToWork = 40 * 12;
-		double rAnnualReturnWorking = 0.07 / 12;
-		double dMonthsRetired = 20 * 12;
-		double rAnnaulReturnRetired = 0.02 / 12;
-		double dRequiredIncome = 10000;
-		double dMonthlySSI = 2642;
-		double pv = FinanceLib.pv(rAnnaulReturnRetired, dMonthsRetired, dRequiredIncome - dMonthlySSI, 0, false);
+		double MonthsToWork = 40 * 12;
+		double WorkingAnnualReturn = 0.07 / 12;
+		double MonthsRetired = 20 * 12;
+		double AnnaulReturnRetired = 0.02 / 12;
+		double RequiredIncome = 10000;
+		double MonthSocSec = 2642;
+		double pv = FinanceLib.pv(AnnaulReturnRetired, MonthsRetired, RequiredIncome - MonthSocSec, 0, false);
 		
-		double pmt = FinanceLib.pmt(rAnnualReturnWorking, dMonthsToWork, 0, pv, false);
+		double pmt = FinanceLib.pmt(WorkingAnnualReturn, MonthsToWork, 0, pv, false);
 		
 		System.out.println(pv);
 		System.out.println(pmt);
@@ -35,8 +35,6 @@ public class TestFinance {
 		boolean t = false;
 		double pv = FinanceLib.pv(r, n, y, f, t);
 		
-		//System.out.println(pv);
-		
 	}
 	
 	
@@ -48,12 +46,7 @@ public class TestFinance {
 		double f = 0;
 		boolean t = false;
 		
-		double d = FinanceLib.pmt(r, n, p, f, t);
-		
-		//System.out.println(d);
-		
-		
-		
+		double d = FinanceLib.pmt(r, n, p, f, t);	
 	}
 
 }
