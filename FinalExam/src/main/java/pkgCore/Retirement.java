@@ -72,13 +72,13 @@ public class Retirement {
 
 	public double AmountToSave() {
 		
-		DecimalFormat df = new DecimalFormat("0.00");
-		return (-1)*Double.parseDouble(df.format(FinanceLib.pmt(WorkingAnnualReturn/12, YearsToWork*12, 0, this.TotalAmountSaved(), false)));
+		DecimalFormat decform = new DecimalFormat("0.0");
+		return (-1)*Double.parseDouble(decform.format(FinanceLib.pmt(WorkingAnnualReturn/12, YearsToWork*12, 0, this.TotalAmountSaved(), false)));
 	}
 
 	public double TotalAmountSaved() {
 		
-		DecimalFormat df = new DecimalFormat("0.00");
-		return (-1)*Double.parseDouble(df.format(FinanceLib.pv(AnnualReturnRetired/12, YearsRetired*12.0, (ReqIncome - MonthSocSec), 0.0, false)));
+		DecimalFormat decform = new DecimalFormat("0.0");
+		return (-1)*Double.parseDouble(decform.format(FinanceLib.pv(AnnualReturnRetired/12, YearsRetired*12.0, (ReqIncome - MonthSocSec), 0.0, false)));
 	}
 }
