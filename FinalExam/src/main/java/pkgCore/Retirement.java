@@ -12,15 +12,16 @@ public class Retirement {
 	private double MonthSocSec;
 	
 	public Retirement(int YearsToWork, double WorkingAnnualReturn, int YearsRetired, double AnnualReturnRetired, double ReqIncome, double MonthSocSec) {
-
-	this.setYearsToWork(YearsToWork);
-	this.setAnnualReturnRetired(AnnualReturnRetired);
-	this.setYearsRetired(YearsRetired);
-	this.setAnnualReturnWorking(WorkingAnnualReturn);
-	this.setReqIncome(ReqIncome);
-	this.setMonthSocSec(MonthSocSec);
+		this.setYearsToWork(YearsToWork);
+		this.setAnnualReturnRetired(AnnualReturnRetired);
+		this.setYearsRetired(YearsRetired);
+		this.setAnnualReturnWorking(WorkingAnnualReturn);
+		this.setReqIncome(ReqIncome);
+		this.setMonthSocSec(MonthSocSec);
 	}
 
+	//setters and getters
+	
 	public int getYearsToWork() {
 		return YearsToWork;
 	}
@@ -72,15 +73,15 @@ public class Retirement {
 
 	public double AmountToSave() {
 		//value comes out neg, so inserting (-1)*value
-		DecimalFormat decform = new DecimalFormat("0.0");
-		return (-1)*Double.parseDouble(decform.format(FinanceLib.pmt((WorkingAnnualReturn)/(12),
+		DecimalFormat Answer = new DecimalFormat("0.0");
+		return (-1)*Double.parseDouble(Answer.format(FinanceLib.pmt((WorkingAnnualReturn)/(12),
 				(YearsToWork)*(12), 0, this.TotalAmountSaved(), false)));
 	}
 
 	public double TotalAmountSaved() {
 		//value comes out neg, so inserting (-1)*value
-		DecimalFormat decform = new DecimalFormat("0.0");
-		return (-1)*Double.parseDouble(decform.format(FinanceLib.pv((AnnualReturnRetired)/(12),
+		DecimalFormat Answer2 = new DecimalFormat("0.0");
+		return (-1)*Double.parseDouble(Answer2.format(FinanceLib.pv((AnnualReturnRetired)/(12),
 				(YearsRetired)*(12), (ReqIncome - MonthSocSec), 0.0, false)));
 	}
 }
