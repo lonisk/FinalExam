@@ -105,7 +105,7 @@ public class RetirementController implements Initializable {
         }
         
         try {
-        	if(Double.parseDouble(AnnualReturnRetired.getText()) < 0 || Double.parseDouble(AnnualReturnRetired.getText()) > 0.03) {
+        		if(Double.parseDouble(AnnualReturnRetired.getText()) < 0 || Double.parseDouble(AnnualReturnRetired.getText()) > 0.03) {
         		ErrorMessage = "Working Annual Return must be between 0-0.03:error";
         		OutputError = false;
             }
