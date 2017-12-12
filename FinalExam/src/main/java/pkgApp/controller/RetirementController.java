@@ -74,61 +74,68 @@ public class RetirementController implements Initializable {
 	
 	//exceptions thrown
     private boolean isInputValid() {
-        String OutputError = "";
-
+        boolean OutputError = true;
+        String ErrorMessage =""; //blank initially
+        
         try {
             Integer.parseInt(YearsToWork.getText());
         } 
         catch (NumberFormatException exception) {
-        	OutputError = OutputError + "Years To Work must be valid integer:error"; 
+        	ErrorMessage = "Years To Work must be valid integer:error";
+        	OutputError = false;
         }
         
         try {
             Integer.parseInt(YearsRetired.getText());
         } 
         catch (NumberFormatException exception) {
-        	OutputError = OutputError + "Years Retired must be valid integer:error"; 
+        	ErrorMessage = "Years Retired must be valid integer:error"; 
+        	OutputError = false;
         }
         
         try {
             if(Double.parseDouble(WorkingAnnualReturn.getText()) < 0.0 || Double.parseDouble(WorkingAnnualReturn.getText()) > 0.20) {
-            	OutputError = OutputError + "Annual Return Working must be between 0-0.20:error";
+            	ErrorMessage = "Annual Return Working must be between 0-0.20:error";
+            	OutputError = false;
             }
-            
         } 
         catch (NumberFormatException exception) {
-        	OutputError = OutputError + "Working Annual Return must be a number:error"; 
+        	ErrorMessage = "Working Annual Return must be a number:error"; 
+        	OutputError = false;
         }
         
         try {
         	if(Double.parseDouble(AnnualReturnRetired.getText()) < 0 || Double.parseDouble(AnnualReturnRetired.getText()) > 0.03) {
-        		OutputError = OutputError + "Working Annual Return must be between 0-0.03:error";
+        		ErrorMessage = "Working Annual Return must be between 0-0.03:error";
+        		OutputError = false;
             }
         } 
         catch (NumberFormatException exception) {
-        	OutputError = OutputError + "AnnualReturnRetired must be a number:error"; 
+        	ErrorMessage = "AnnualReturnRetired must be a number:error"; 
+        	OutputError = false;
         }
         
         try {
             Double.parseDouble(ReqIncome.getText());
         } 
         catch (NumberFormatException exception) {
-        	OutputError = OutputError + "Required Income must be valid number:error"; 
+        	ErrorMessage = "Required Income must be valid number:error";
+        	OutputError = false;
         }
 
         try {
             Double.parseDouble(MonthSocSec.getText());
         } 
         catch (NumberFormatException exception) {
-        	OutputError = OutputError + "MonthSocSec must be valid number:error"; 
+        	ErrorMessage = "MonthSocSec must be valid number:error";
+        	OutputError = false;
         }
         
-        //length of string output !=0
-        if (OutputError.length() != 0) {
+        if (OutputError == false) {
             Alert problem = new Alert(AlertType.ERROR);
             problem.setTitle("Invalid Entry");
             problem.setHeaderText("Correct invalid entires");
-            problem.setContentText(OutputError);
+            problem.setContentText(ErrorMessage);
         		return false;
         } else {
             return true;
