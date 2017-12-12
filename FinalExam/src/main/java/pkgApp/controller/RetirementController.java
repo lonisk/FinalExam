@@ -36,7 +36,6 @@ public class RetirementController implements Initializable {
 	private Button Clear;
 	@FXML
 	private Button Calc;
-
 	@FXML
 	public RetirementApp getMainApp() {
 		return mainApp;
@@ -50,10 +49,8 @@ public class RetirementController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 	}
 
-	
 	public void btnClear(ActionEvent event) {
-		System.out.println("Clear pressed");
-
+		System.out.println("Clear All"); //clear all fields
 		YearsToWork.clear();
 		WorkingAnnualReturn.clear();
 		YearsRetired.clear();
@@ -68,70 +65,71 @@ public class RetirementController implements Initializable {
 	public void btnCalculate(ActionEvent event) {
 
 		if(isInputValid())
-		{Retirement r = new Retirement((int) Integer.valueOf(YearsToWork.getText()),
-				(double) Double.valueOf(WorkingAnnualReturn.getText()),
-				(int) Integer.valueOf(YearsRetired.getText()),
-				(double) Double.valueOf(AnnualReturnRetired.getText()),
-				(double) Double.valueOf(ReqIncome.getText()), (double) Double.valueOf(MonthSocSec.getText()));
-
+		{Retirement r = new Retirement((int) Integer.valueOf(YearsToWork.getText()),(double) Double.valueOf(WorkingAnnualReturn.getText()), (int) Integer.valueOf(YearsRetired.getText()),(double) Double.valueOf(AnnualReturnRetired.getText()),(double) Double.valueOf(ReqIncome.getText()), (double) Double.valueOf(MonthSocSec.getText()));
 		TotalAmountSaved.setText(Double.toString(r.TotalAmountSaved()));
 		AmountToSave.setText(Double.toString(r.AmountToSave()));
 		}
 	}
 	
+	//exceptions thrown
     private boolean isInputValid() {
-        String errorMessage = "";
+        String OutputError = "";
 
         try {
             Integer.parseInt(YearsToWork.getText());
-        } catch (NumberFormatException e) {
-            errorMessage += "Years To Work must be valid integer!\n"; 
+        } 
+        catch (NumberFormatException e) {
+        	OutputError += "Years To Work must be valid integer:error"; 
         }
         
         try {
             Integer.parseInt(YearsRetired.getText());
-        } catch (NumberFormatException e) {
-            errorMessage += "Years Retired must be valid integer\n"; 
+        } 
+        catch (NumberFormatException e) {
+        	OutputError += "Years Retired must be valid integer:error"; 
         }
         
         try {
             if(Double.parseDouble(WorkingAnnualReturn.getText())<0 || Double.parseDouble(WorkingAnnualReturn.getText())>.2) {
-            	errorMessage += "Annual Return Working must be between 0-0.20\n";
+            	OutputError += "Annual Return Working must be between 0-0.20:error";
             }
             
-        } catch (NumberFormatException e) {
-            errorMessage += "Annual Return Working must be a number\n"; 
+        } 
+        catch (NumberFormatException e) {
+        	OutputError += "Working Annual Return must be a number:error"; 
         }
         
         try {
         	if(Double.parseDouble(AnnualReturnRetired.getText())<0 || Double.parseDouble(AnnualReturnRetired.getText())>.03) {
-            	errorMessage += "Annual Return Working must be between 0-0.03\n";
+        		OutputError += "Working Annual Return must be between 0-0.03:error";
             }
-        } catch (NumberFormatException e) {
-            errorMessage += "AnnualReturnRetired must be a number!\n"; 
+        } 
+        catch (NumberFormatException e) {
+        	OutputError += "AnnualReturnRetired must be a number:error"; 
         }
         
         try {
             Double.parseDouble(ReqIncome.getText());
-        } catch (NumberFormatException e) {
-            errorMessage += "Required Income must be valid number!\n"; 
+        } 
+        catch (NumberFormatException e) {
+        	OutputError += "Required Income must be valid number:error"; 
         }
 
         try {
             Double.parseDouble(MonthSocSec.getText());
-        } catch (NumberFormatException e) {
-            errorMessage += "MonthSocSec must be valid number\n"; 
+        } 
+        catch (NumberFormatException e) {
+        	OutputError += "MonthSocSec must be valid number:error"; 
         }
         
-        if (errorMessage.length() == 0) {
+        //length of string output ==0
+        if (OutputError.length() == 0) {
             return true;
         } else {
             Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText(errorMessage);
-            alert.showAndWait();
-
+            alert.setTitle("Invalid Entry");
+            alert.setHeaderText("Correct invalid fields");
+            alert.setContentText(OutputError);
             return false;
         }
     }
